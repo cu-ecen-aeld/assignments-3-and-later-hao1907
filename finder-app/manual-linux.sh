@@ -10,6 +10,14 @@ FINDER_APP_DIR=$(realpath $(dirname $0))
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 
+if [ $# -lt 1 ]
+then
+	echo "Using default directory ${OUTDIR} for output"
+else
+	export OUTDIR=$1
+	echo "Using passed directory ${OUTDIR} for output"
+fi
+
 echo "-------------------------------"
 echo "OUTDIR: $OUTDIR"
 echo "ARCH: $ARCH"
@@ -202,9 +210,9 @@ echo "🔍 DEBUG: Current directory after copying files: ${CURDIR}"
 cd ${CURDIR}
 
 # Copy file vào rootfs
-cp writer.sh /tmp/aeld/rootfs/home/
-chmod +x /tmp/aeld/rootfs/home/writer.sh
-chmod +x /tmp/aeld/rootfs/home/finder.sh
+cp writer.sh ${OUTDIR}/rootfs/home/
+chmod +x ${OUTDIR}/rootfs/home/writer.sh
+chmod +x ${OUTDIR}/rootfs/home/finder.sh
 
 # Only change ownership at the very end
 sudo chown -R root:root ${OUTDIR}/rootfs/*
