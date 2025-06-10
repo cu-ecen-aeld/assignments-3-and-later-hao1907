@@ -19,7 +19,10 @@ struct thread_data{
      * Set to true if the thread completed with success, false
      * if an error occurred.
      */
-    bool thread_complete_success;
+    pthread_mutex_t *mutex; // Con trỏ tới mutex
+    int wait_to_obtain_ms;  // Thời gian chờ trước khi khóa mutex
+    int wait_to_release_ms; // Thời gian chờ trước khi mở mutex
+    bool thread_complete_success; // Kết quả thực thi thread
 };
 
 
